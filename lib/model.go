@@ -31,19 +31,19 @@ type SystemMigration struct {
 }
 
 // Get migration id
-func (m *SystemMigration) GetId() uint64           { return m.Id }
+func (m *SystemMigration) GetId() uint64 { return m.Id }
 
 // Get migration uuid
-func (m *SystemMigration) GetUuid() string         { return m.Uuid }
+func (m *SystemMigration) GetUuid() string { return m.Uuid }
 
 // Get migration script
-func (m *SystemMigration) GetScript() string       { return m.Script }
+func (m *SystemMigration) GetScript() string { return m.Script }
 
 // Get migration description
-func (m *SystemMigration) GetDescription() string  { return m.Description }
+func (m *SystemMigration) GetDescription() string { return m.Description }
 
 // Get migration type
-func (m *SystemMigration) GetType() MigrationType  { return m.Type }
+func (m *SystemMigration) GetType() MigrationType { return m.Type }
 
 // Get migration creation time
 func (m *SystemMigration) GetCreatedAt() time.Time { return m.CreatedAt }

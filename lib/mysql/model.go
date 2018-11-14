@@ -15,22 +15,22 @@ type Migration struct {
 }
 
 // Get migration id
-func (m *Migration) GetId() uint64              { return m.Id }
+func (m *Migration) GetId() uint64 { return m.Id }
 
 // Get migration uuid
-func (m *Migration) GetUuid() string            { return m.Uuid }
+func (m *Migration) GetUuid() string { return m.Uuid }
 
 // Get migration script
-func (m *Migration) GetScript() string          { return m.Script }
+func (m *Migration) GetScript() string { return m.Script }
 
 // Get migration description
-func (m *Migration) GetDescription() string     { return m.Description }
+func (m *Migration) GetDescription() string { return m.Description }
 
 // Get migration type
 func (m *Migration) GetType() lib.MigrationType { return m.Type }
 
 // Get migration creation time
-func (m *Migration) GetCreatedAt() time.Time    { return m.CreatedAt }
+func (m *Migration) GetCreatedAt() time.Time { return m.CreatedAt }
 
 // Get migration table name
 func (m *Migration) TableName() string {
