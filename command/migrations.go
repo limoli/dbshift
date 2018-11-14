@@ -6,6 +6,7 @@ import (
 	"github.com/limoli/dbshift/util"
 )
 
+// Migrations is the command to get migrations to upgrade or downgrade
 func Migrations(db lib.IDb, migrationType lib.MigrationType) {
 	migrations, err := db.GetMigrationsByType(migrationType, nil)
 	if err != nil {

@@ -11,6 +11,7 @@ type Db struct {
 	tx *gorm.DB
 }
 
+// Connect to MySQL database
 func (db *Db) Connect(config lib.IDbConfig) error {
 	var err error
 
@@ -29,10 +30,12 @@ func (db *Db) Connect(config lib.IDbConfig) error {
 	return nil
 }
 
+// Get MySQL extension
 func (db *Db) GetExtension() string {
 	return "sql"
 }
 
+// Get MySQL transaction
 func (db *Db) GetTransaction() lib.IDbTransaction {
 	return &TxWrapper{db.tx.Begin()}
 }
@@ -41,11 +44,13 @@ type TxWrapper struct {
 	tx *gorm.DB
 }
 
+// Commit a MySQL transaction
 func (tx *TxWrapper) Commit() error {
 	result := tx.tx.Commit()
 	return result.Error
 }
 
+// Rollback a MySQL transaction
 func (tx *TxWrapper) Rollback() error {
 	result := tx.tx.Rollback()
 	return result.Error

@@ -5,6 +5,7 @@ import (
 	"github.com/limoli/dbshift/util"
 )
 
+// Execute is the command to execute migrations upgrades or downgrades
 func Execute(db lib.IDb, migrationType lib.MigrationType) {
 	migrations, err := db.GetMigrationsByType(migrationType, nil)
 	if err != nil {

@@ -40,6 +40,7 @@ type ConnectionType struct {
 	Value string `yaml:"value"`
 }
 
+// Get database name
 func (c *Connection) GetName() string {
 	value := os.Getenv(c.Name.Env)
 	if value != "" {
@@ -48,6 +49,7 @@ func (c *Connection) GetName() string {
 	return c.Name.Value
 }
 
+// Get database user
 func (c *Connection) GetUser() string {
 	value := os.Getenv(c.User.Env)
 	if value != "" {
@@ -56,6 +58,7 @@ func (c *Connection) GetUser() string {
 	return c.User.Value
 }
 
+// Get database password
 func (c *Connection) GetPassword() string {
 	value := os.Getenv(c.Password.Env)
 	if value != "" {
@@ -64,6 +67,7 @@ func (c *Connection) GetPassword() string {
 	return c.Password.Value
 }
 
+// Get database host
 func (c *Connection) GetHost() string {
 	value := os.Getenv(c.Host.Env)
 	if value != "" {
@@ -72,6 +76,7 @@ func (c *Connection) GetHost() string {
 	return c.Host.Value
 }
 
+// Get database port
 func (c *Connection) GetPort() string {
 	value := os.Getenv(c.Port.Env)
 	if value != "" {

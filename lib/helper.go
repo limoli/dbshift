@@ -10,10 +10,12 @@ import (
 	"time"
 )
 
+// IsInitialised checks if system stores exist
 func IsInitialised(db IDb) bool {
 	return db.HasHistoryStore() && db.HasMigrationStore()
 }
 
+// GetMigration returns a migration instance
 func GetMigration(uuid string, description string, migrationType MigrationType, script IDbScript) SystemMigration {
 	fileName := GetMigrationFileName(uuid, migrationType, script.GetExtension())
 	return SystemMigration{
@@ -25,10 +27,12 @@ func GetMigration(uuid string, description string, migrationType MigrationType, 
 	}
 }
 
+// GetMigrationFileName returns a migration filename
 func GetMigrationFileName(uuid string, migrationType MigrationType, extension string) string {
 	return fmt.Sprintf("%s.%s.%s", uuid, migrationType.String(), extension)
 }
 
+// WriteMigrationFile creates a migration file in migrations path
 func WriteMigrationFile(m SystemMigration) error {
 	migrationFileHeader := "/*%s\n\tMIGRATION %s\n\tId: %s\n\tDescription: %s\n%s*/"
 	headerDelimiter := strings.Repeat("*", 50)
@@ -37,10 +41,13 @@ func WriteMigrationFile(m SystemMigration) error {
 	return ioutil.WriteFile(path, []byte(data), 0644)
 }
 
+// RemoveMigrationFile removes a migration file from migrations path
 func RemoveMigrationFile(m SystemMigration) error {
 	return os.Remove(filepath.Join(Setting.GetMigrationPath(), m.GetScript()))
 }
 
+// ControlMigrationCreation checks if migrations files have been created and stored correctly, executing commit or
+// rollback using the creating transaction.
 func ControlMigrationCreation(err error, tx IDbTransaction, down SystemMigration, up SystemMigration) {
 	if err != nil {
 		tx.Rollback()
@@ -51,6 +58,7 @@ func ControlMigrationCreation(err error, tx IDbTransaction, down SystemMigration
 	}
 }
 
+// ExecuteMigrations executes a list of migrations updating history for each successful execution
 func ExecuteMigrations(db IDb, migrations []IMigration) error {
 	var err, errTx error
 	var script []byte
@@ -93,6 +101,7 @@ func ExecuteMigrations(db IDb, migrations []IMigration) error {
 	return err
 }
 
+// ReadMigrationsFromLockFile reads migrations from the lockfile
 func ReadMigrationsFromLockFile() ([]SystemMigration, error) {
 	filePath := Setting.GetLockFilePath()
 	data, err := ioutil.ReadFile(filePath)
@@ -109,6 +118,7 @@ func ReadMigrationsFromLockFile() ([]SystemMigration, error) {
 	return migrations, nil
 }
 
+// WriteMigrationLockFile writes migrations in the lockfile keeping the old content and adding the new content
 func WriteMigrationLockFile(down SystemMigration, up SystemMigration) error {
 	filePath := Setting.GetLockFilePath()
 	currentData, err := ioutil.ReadFile(filePath)

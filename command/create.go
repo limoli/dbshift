@@ -6,6 +6,7 @@ import (
 	"github.com/limoli/dbshift/util"
 )
 
+// Create is the command to create migrations
 func Create(db lib.IDb, description string) {
 	mUuid, err := uuid.NewV4()
 	if err != nil {

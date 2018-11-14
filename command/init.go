@@ -6,6 +6,7 @@ import (
 	"github.com/limoli/dbshift/util"
 )
 
+// Init is the command to initialise the system
 func Init(db lib.IDb) {
 	if !db.HasMigrationStore() {
 		if err := db.CreateMigrationStore(); err != nil {

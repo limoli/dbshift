@@ -32,22 +32,27 @@ type setting struct {
 	dbConnection  IDbConfig
 }
 
+// Get config path
 func (s *setting) GetConfigPath() string {
 	return s.configPath
 }
 
+// Get lockfile path
 func (s *setting) GetLockFilePath() string {
 	return s.lockFilePath
 }
 
+// Get migration path
 func (s *setting) GetMigrationPath() string {
 	return s.migrationPath
 }
 
+// Get database type
 func (s *setting) GetDatabaseType() DatabaseType {
 	return s.dbType
 }
 
+// Get database connection
 func (s *setting) GetDatabaseConnection() IDbConfig {
 	return s.dbConnection
 }

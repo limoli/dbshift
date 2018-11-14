@@ -10,16 +10,19 @@ var (
 	errTransactionAssertion    = lib.NewError("transaction assertion")
 )
 
+// HasMigrationStore checks if there is a store for migrations in db
 func (db *Db) HasMigrationStore() bool {
 	migrationEntity := new(Migration)
 	return db.tx.HasTable(migrationEntity)
 }
 
+// HasHistoryStore checks if there is a store for history in db
 func (db *Db) HasHistoryStore() bool {
 	historyEntity := new(MigrationHistory)
 	return db.tx.HasTable(historyEntity)
 }
 
+// CreateMigrationStore creates store for migrations in db
 func (db *Db) CreateMigrationStore() error {
 	migrationEntity := new(Migration)
 	resultMigration := db.tx.
@@ -31,6 +34,7 @@ func (db *Db) CreateMigrationStore() error {
 	return nil
 }
 
+// CreateHistoryStore creates store for history in db
 func (db *Db) CreateHistoryStore() error {
 	historyEntity := new(MigrationHistory)
 	migrationEntity := new(Migration)
@@ -43,6 +47,7 @@ func (db *Db) CreateHistoryStore() error {
 	return nil
 }
 
+// ImportMigrations imports migrations from migrations path and returns how many migrations are imported
 func (db *Db) ImportMigrations(migrations []lib.IMigration) (uint, error) {
 	var counter uint
 
@@ -68,6 +73,7 @@ func (db *Db) ImportMigrations(migrations []lib.IMigration) (uint, error) {
 	return counter, nil
 }
 
+// GetStatus returns the number of migrations to upgrade and to downgrade
 func (db *Db) GetStatus() (int, int) {
 	var counterMigrationUpgrade int
 	var counterMigrationDowngrade int
@@ -85,6 +91,7 @@ func (db *Db) GetStatus() (int, int) {
 	return counterMigrationUpgrade, counterMigrationDowngrade
 }
 
+// CreateMigration creates migration in database
 func (db *Db) CreateMigration(transaction lib.IDbTransaction, sm *lib.SystemMigration) error {
 	txWr, ok := transaction.(*TxWrapper)
 	if !ok {
@@ -109,6 +116,7 @@ func (db *Db) CreateMigration(transaction lib.IDbTransaction, sm *lib.SystemMigr
 	return nil
 }
 
+// GetMigrationsByType gets migrations according to the migration type
 func (db *Db) GetMigrationsByType(migrationType lib.MigrationType, migrationId *uint64) ([]lib.IMigration, error) {
 	var migrations []Migration
 
@@ -135,6 +143,7 @@ func (db *Db) GetMigrationsByType(migrationType lib.MigrationType, migrationId *
 	return iMigrations, nil
 }
 
+// ExecuteMigration executes a migration in a shared transaction returning the execution time
 func (db *Db) ExecuteMigration(transaction lib.IDbTransaction, script []byte) (*time.Duration, error) {
 	txWr, ok := transaction.(*TxWrapper)
 	if !ok {
@@ -152,6 +161,7 @@ func (db *Db) ExecuteMigration(transaction lib.IDbTransaction, script []byte) (*
 	return &executionTime, nil
 }
 
+// UpdateMigrationHistory updates the history adding the reference of the last executed migration and its execution time
 func (db *Db) UpdateMigrationHistory(migrationId uint64, executionTime time.Duration) error {
 	updatedHistory := MigrationHistory{
 		MigrationId:   migrationId,
