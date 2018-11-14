@@ -26,7 +26,7 @@ type IDbAction interface {
 	CreateMigration(transaction IDbTransaction, m *SystemMigration) error
 	ExecuteMigration(transaction IDbTransaction, script []byte) (*time.Duration, error)
 	GetMigrationsByType(migrationType MigrationType, migrationId *uint64) ([]IMigration, error)
-	GetStatus() (int, int)
+	GetExecutableMigrationsCounter(migrationType MigrationType) (uint, error)
 	GetTransaction() IDbTransaction
 	UpdateMigrationHistory(migrationId uint64, executionTime time.Duration) error
 }
