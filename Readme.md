@@ -4,6 +4,7 @@ DbShift is a simple **database migrations tool** with the goal of simplicity.
 You will be able to create migrations, check the current db status, decide to upgrade or downgrade easily.
 
 [![Build Status](https://travis-ci.org/limoli/dbshift.svg?branch=master)](https://travis-ci.org/limoli/dbshift)
+[![Go Report Card](https://goreportcard.com/badge/github.com/limoli/dbshift)](https://goreportcard.com/report/github.com/limoli/dbshift)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5e7e080762d9ecf52ec1/maintainability)](https://codeclimate.com/github/limoli/dbshift/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5e7e080762d9ecf52ec1/test_coverage)](https://codeclimate.com/github/limoli/dbshift/test_coverage)
 
