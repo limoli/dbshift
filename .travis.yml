@@ -1,0 +1,30 @@
+sudo: false
+
+language: go
+
+services:
+- mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+  # Setup dependency management tool
+  - curl -L -s https://github.com/golang/dep/releases/download/v0.3.1/dep-linux-amd64 -o $GOPATH/bin/dep
+  - chmod +x $GOPATH/bin/dep
+
+install:
+  # Add Godeps dependencies to GOPATH and PATH
+  - export GOPATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace:$GOPATH"
+  - export PATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH"
+  # Add DbShift configuration file
+  - export DBSHIFT_CONFIG="${TRAVIS_BUILD_DIR}/example"
+  # Set value to MYSQL_MIGRATIONS_PATH environment variable declared in configuration file
+  - export MYSQL_MIGRATIONS_PATH="${TRAVIS_BUILD_DIR}/example/migrations"
+  # Set database connection
+  - export MYSQL_DATABASE=test
+  - export MYSQL_HOST=127.0.0.1
+  - export MYSQL_USER=travis
+  # Install dependencies
+  - dep ensure
+
+before_script:
+  - go vet ./...

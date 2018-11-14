@@ -1,0 +1,12 @@
+- id: 1
+  uuid: 72922af6-a5bd-4234-a636-3779004a9a4f
+  script: 72922af6-a5bd-4234-a636-3779004a9a4f.downgrade.sql
+  description: add-friend
+  type: 0
+  createdAt: 2018-11-12T18:24:23.075597+01:00
+- id: 2
+  uuid: 72922af6-a5bd-4234-a636-3779004a9a4f
+  script: 72922af6-a5bd-4234-a636-3779004a9a4f.upgrade.sql
+  description: add-friend
+  type: 1
+  createdAt: 2018-11-12T18:24:23.0756+01:00

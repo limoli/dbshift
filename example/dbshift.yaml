@@ -1,0 +1,17 @@
+db:
+  type: mysql
+  migration:
+    path: /srv/project/db/migrations
+    pathEnv: MYSQL_MIGRATIONS_PATH
+  connection:
+    name:
+      env: MYSQL_DATABASE
+    user:
+      env: MYSQL_USER
+    password:
+      env: MYSQL_PASSWORD
+    host:
+      env: MYSQL_HOST
+    port:
+      env: MYSQL_PORT
+      value: 3306
