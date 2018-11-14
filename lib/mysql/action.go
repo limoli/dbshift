@@ -73,22 +73,25 @@ func (db *Db) ImportMigrations(migrations []lib.IMigration) (uint, error) {
 	return counter, nil
 }
 
-// GetStatus returns the number of migrations to upgrade and to downgrade
-func (db *Db) GetStatus() (int, int) {
-	var counterMigrationUpgrade int
-	var counterMigrationDowngrade int
+// GetExecutableMigrationsCounter returns the number of migrations available for execution according to
+// migration type (upgrade or downgrade)
+func (db *Db) GetExecutableMigrationsCounter(migrationType lib.MigrationType) (uint, error) {
+	var counter uint
 
 	lastDone := db.getLastExecutedMigration()
+	query := db.tx.Model(new(Migration))
 
-	db.tx.Model(new(Migration)).
-		Where("type = ? AND id > ?", lib.Upgrade, lastDone.MigrationId).
-		Count(&counterMigrationUpgrade)
+	switch migrationType {
+	case lib.Upgrade:
+		query = query.Where("type = ? AND id > ?", lib.Upgrade, lastDone.MigrationId)
+		break
+	case lib.Downgrade:
+		query = query.Where("type = ? AND id < ?", lib.Downgrade, lastDone.MigrationId)
+		break
+	}
 
-	db.tx.Model(new(Migration)).
-		Where("type = ? AND id < ?", lib.Downgrade, lastDone.MigrationId).
-		Count(&counterMigrationDowngrade)
-
-	return counterMigrationUpgrade, counterMigrationDowngrade
+	result := query.Count(&counter)
+	return counter, result.Error
 }
 
 // CreateMigration creates migration in database
