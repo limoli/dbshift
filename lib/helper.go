@@ -63,6 +63,7 @@ func ExecuteMigrations(db IDb, migrations []IMigration) error {
 	var err, errTx error
 	var script []byte
 	var scriptPath string
+	var executionTime *time.Duration
 
 	for _, v := range migrations {
 		scriptPath = filepath.Join(Setting.GetMigrationPath(), v.GetScript())
@@ -73,7 +74,7 @@ func ExecuteMigrations(db IDb, migrations []IMigration) error {
 
 		tx := db.GetTransaction()
 
-		executionTime, err := db.ExecuteMigration(tx, script)
+		executionTime, err = db.ExecuteMigration(tx, script)
 		if err != nil {
 			err = NewError("migration %s got an error executing script : '%s'", v.GetScript(), err.Error())
 			break
