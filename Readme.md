@@ -124,3 +124,4 @@ At the moment the project is focused only on **MySQL**, but it is opened to impl
 2. Add possibility to upgrade/downgrade to a specific migration
 3. Add command to restore dbshift in case of transactional errors
 4. Add command to remove a migration
+5. Add command to get list of all migrations with description and uuid reference
