@@ -123,3 +123,4 @@ At the moment the project is focused only on **MySQL**, but it is opened to impl
 1. Improve coverage
 2. Add possibility to upgrade/downgrade to a specific migration
 3. Add command to restore dbshift in case of transactional errors
+4. Add command to remove a migration
