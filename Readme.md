@@ -6,8 +6,8 @@ You will be able to create migrations, check the current db status, decide to up
 [![GoDoc](https://godoc.org/limoli/dbshift?status.svg)](https://godoc.org/github.com/limoli/dbshift)
 [![Build Status](https://travis-ci.org/limoli/dbshift.svg?branch=master)](https://travis-ci.org/limoli/dbshift)
 [![Go Report Card](https://goreportcard.com/badge/github.com/limoli/dbshift)](https://goreportcard.com/report/github.com/limoli/dbshift)
-[![Maintainability](https://api.codeclimate.com/v1/badges/5e7e080762d9ecf52ec1/maintainability)](https://codeclimate.com/github/limoli/dbshift/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/5e7e080762d9ecf52ec1/test_coverage)](https://codeclimate.com/github/limoli/dbshift/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/76ab43d259213895e8dd/maintainability)](https://codeclimate.com/github/limoli/dbshift/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/76ab43d259213895e8dd/test_coverage)](https://codeclimate.com/github/limoli/dbshift/test_coverage)
 
 ## Install
 
@@ -120,7 +120,7 @@ At the moment the project is focused only on **MySQL**, but it is opened to impl
 
 ## Future implementations
 
-1. Improve coverage
+1. Improve test coverage
 2. Add possibility to upgrade/downgrade to a specific migration
 3. Add command to restore dbshift in case of transactional errors
 4. Add command to remove a migration
