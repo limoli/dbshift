@@ -5,6 +5,10 @@ language: go
 services:
 - mysql
 
+env:
+  global:
+  - CC_TEST_REPORTER_ID=9f737a2d867ccb3279856ac54e28c6b0445b66ea3fae169035d50b21407b1b1c
+
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
   # Setup dependency management tool
@@ -28,3 +32,12 @@ install:
 
 before_script:
   - go vet ./...
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  - bundle exec rspec
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
