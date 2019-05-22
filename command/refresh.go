@@ -5,22 +5,8 @@ import (
 	"github.com/limoli/dbshift/util"
 )
 
-// Init is the command to initialise the system
-func Init(db lib.IDb) {
-	if !db.HasMigrationStore() {
-		if err := db.CreateMigrationStore(); err != nil {
-			util.Exit(err)
-		}
-	}
-
-	if !db.HasHistoryStore() {
-		if err := db.CreateHistoryStore(); err != nil {
-			util.Exit(err)
-		}
-	}
-
-	lib.Success("database has been initialised")
-
+// Refresh is the command to discover and import new migrations
+func Refresh(db lib.IDb) {
 	migrations, err := lib.ReadMigrationsFromLockFile()
 	if err != nil {
 		util.Exit(err)

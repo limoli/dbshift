@@ -33,7 +33,10 @@ func main() {
 	}
 
 	if len(os.Args) > 1 {
-		shell.Process(os.Args[1:]...)
+		err = shell.Process(os.Args[1:]...)
+		if err != nil {
+			util.Exit(err)
+		}
 	} else {
 		shell.Run()
 	}
@@ -57,29 +60,41 @@ func getDatabase(dbType lib.DatabaseType) (lib.IDb, error) {
 func getShellCommands(db lib.IDb) []*ishell.Cmd {
 	return []*ishell.Cmd{
 		{
-			Name: "init",
-			Help: "init",
+			Name:     "init",
+			Help:     "init",
+			LongHelp: "Install dbshift using your database.",
 			Func: func(c *ishell.Context) {
 				util.ExitIfInitialised(db)
 				command.Init(db)
 			},
 		}, {
-			Name: "info",
-			Help: "info",
+			Name:     "refresh",
+			Help:     "refresh",
+			LongHelp: "It discovers and imports new migrations.",
+			Func: func(c *ishell.Context) {
+				util.ExitIfNotInitialised(db)
+				command.Refresh(db)
+			},
+		}, {
+			Name:     "info",
+			Help:     "info",
+			LongHelp: "It returns information about dbshift.",
 			Func: func(c *ishell.Context) {
 				util.ExitIfNotInitialised(db)
 				command.Info()
 			},
 		}, {
-			Name: "status",
-			Help: "status",
+			Name:     "status",
+			Help:     "status",
+			LongHelp: "It returns the current status of database along migrations.",
 			Func: func(c *ishell.Context) {
 				util.ExitIfNotInitialised(db)
 				command.Status(db)
 			},
 		}, {
-			Name: "create",
-			Help: "create <description>",
+			Name:     "create",
+			Help:     "create <description>",
+			LongHelp: "It creates a migration with description.",
 			Func: func(c *ishell.Context) {
 				util.ExitIfNotInitialised(db)
 				if len(c.Args) != 1 {
@@ -89,29 +104,33 @@ func getShellCommands(db lib.IDb) []*ishell.Cmd {
 				command.Create(db, description)
 			},
 		}, {
-			Name: "migrations-upgrade",
-			Help: "migrations-upgrade",
+			Name:     "migrations-upgrade",
+			Help:     "migrations-upgrade",
+			LongHelp: "It returns the list of migrations eligible to upgrade.",
 			Func: func(c *ishell.Context) {
 				util.ExitIfNotInitialised(db)
 				command.Migrations(db, lib.Upgrade)
 			},
 		}, {
-			Name: "migrations-downgrade",
-			Help: "migrations-downgrade",
+			Name:     "migrations-downgrade",
+			Help:     "migrations-downgrade",
+			LongHelp: "It returns the list of migrations eligible to downgrade.",
 			Func: func(c *ishell.Context) {
 				util.ExitIfNotInitialised(db)
 				command.Migrations(db, lib.Downgrade)
 			},
 		}, {
-			Name: "upgrade",
-			Help: "upgrade",
+			Name:     "upgrade",
+			Help:     "upgrade",
+			LongHelp: "It upgrades all the migrations eligible to upgrade.",
 			Func: func(c *ishell.Context) {
 				util.ExitIfNotInitialised(db)
 				command.Execute(db, lib.Upgrade)
 			},
 		}, {
-			Name: "downgrade",
-			Help: "downgrade",
+			Name:     "downgrade",
+			Help:     "downgrade",
+			LongHelp: "It downgrades all the migrations eligible to downgrade.",
 			Func: func(c *ishell.Context) {
 				util.ExitIfNotInitialised(db)
 				command.Execute(db, lib.Downgrade)
