@@ -58,6 +58,11 @@ dbshift migrations-downgrade
 dbshift info
 ```    
 
+9. Import missing migrations. It is useful when you work on different initialised databases.
+```bash
+dbshift refresh
+```    
+
 
 ## Write good migrations
 
