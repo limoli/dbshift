@@ -3,6 +3,11 @@
 DbShift is a simple **database migrations tool** with the goal of simplicity. 
 You will be able to create migrations, check the current db status, decide to upgrade or downgrade easily.
 
+**This project is deprecated and no longer supported.**
+
+Dbshit has been divided into several projects based on [Dbshift Core](https://github.com/limoli/dbshift-core).
+
+[![deprecated](http://badges.github.io/stability-badges/dist/deprecated.svg)](http://github.com/badges/stability-badges)
 [![GoDoc](https://godoc.org/limoli/dbshift?status.svg)](https://godoc.org/github.com/limoli/dbshift)
 [![Build Status](https://travis-ci.org/limoli/dbshift.svg?branch=master)](https://travis-ci.org/limoli/dbshift)
 [![Go Report Card](https://goreportcard.com/badge/github.com/limoli/dbshift)](https://goreportcard.com/report/github.com/limoli/dbshift)
